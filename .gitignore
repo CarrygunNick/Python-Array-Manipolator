@@ -1,129 +1,145 @@
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-*$py.class
+def exchange_numbers(given_list, given_number):
+    if len(given_list) < given_number:
+        print('Invalid index')
+    needed_number = given_number + 1
+    first_list = given_list[:needed_number]
+    second_list = given_list[needed_number:]
+    for number in first_list:
+        second_list.append(number)
+    return second_list
 
-# C extensions
-*.so
 
-# Distribution / packaging
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-pip-wheel-metadata/
-share/python-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
+def max_even_odd_elements(given_list, given_word):
+    filled_list = []
+    if given_word == 'even':
+        for number in given_list:
+            if number % 2 == 0:
+                filled_list.append(number)
+        if len(given_list) == 0:
+            return 'No matches'
+        max_number = max(filled_list)
+        if max_number in given_list:
+            return given_list.index(max_number)
+    elif given_word == 'odd':
+        for number in given_list:
+            if number % 2 != 0:
+                filled_list.append(number)
+        if len(given_list) == 0:
+            return 'No matches'
+        max_number = max(filled_list)
+        if max_number in given_list:
+            return given_list.index(max_number)
 
-# PyInstaller
-#  Usually these files are written by a python script from a template
-#  before PyInstaller builds the exe, so as to inject date/other infos into it.
-*.manifest
-*.spec
 
-# Installer logs
-pip-log.txt
-pip-delete-this-directory.txt
+def min_even_odd_elements(given_list, given_word):
+    filled_list = []
+    if given_word == 'even':
+        for number in given_list:
+            if number % 2 == 0:
+                filled_list.append(number)
+        if len(filled_list) == 0:
+            return 'No matches'
+        min_number = min(filled_list)
+        if min_number in given_list:
+            return given_list.index(min_number)
+    elif given_word == 'odd':
+        for number in given_list:
+            if number % 2 != 0:
+                filled_list.append(number)
+        if len(filled_list) == 0:
+            return 'No matches'
+        min_number = min(filled_list)
+        if min_number in given_list:
+            return given_list.index(min_number)
 
-# Unit test / coverage reports
-htmlcov/
-.tox/
-.nox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-*.py,cover
-.hypothesis/
-.pytest_cache/
 
-# Translations
-*.mo
-*.pot
+def first_even(given_list, given_number):
+    filled_list = []
+    counter = 0
+    if len(given_list) < given_number:
+        return 'Invalid count'
+    for index in range(len(given_list)):
+        element = given_list[index]
+        if element % 2 == 0:
+            filled_list.append(element)
+            counter += 1
+    return filled_list
 
-# Django stuff:
-*.log
-local_settings.py
-db.sqlite3
-db.sqlite3-journal
 
-# Flask stuff:
-instance/
-.webassets-cache
+def first_odd(given_list, given_number):
+    filled_list = []
+    counter = 0
+    if len(given_list) < given_number:
+        return 'Invalid count'
+    for index in range(len(given_list)):
+        element = given_list[index]
+        if element % 2 != 0:
+            filled_list.append(element)
+            counter += 1
+        if counter == given_number:
+            break
+    return filled_list
 
-# Scrapy stuff:
-.scrapy
 
-# Sphinx documentation
-docs/_build/
+def last_odd(given_list, given_number):
+    filled_list = []
+    counter = 0
+    if len(given_list) < given_number:
+        return 'Invalid count'
+    for index in range(len(given_list)-1, -1, -1):
+        element = given_list[index]
+        if element % 2 != 0:
+            filled_list.append(element)
+            counter += 1
+        if counter == given_number:
+            break
+    return filled_list
 
-# PyBuilder
-target/
 
-# Jupyter Notebook
-.ipynb_checkpoints
+def last_even(given_list, given_number):
+    filled_list = []
+    counter = 0
+    if len(given_list) < given_number:
+        return 'Invalid count'
+    for index in range(len(given_list)-1, -1, -1):
+        element = given_list[index]
+        if element % 2 == 0:
+            filled_list.append(element)
+            counter += 1
+        if counter == given_number:
+            break
+    return filled_list
 
-# IPython
-profile_default/
-ipython_config.py
 
-# pyenv
-.python-version
+our_list = input().split(' ')
+integer_list = [int(x) for x in our_list]
+command = input()
+while command != 'end':
+    if 'exchange' in command:
+        first_command, second_command = command.split(' ')
+        needed_num = int(second_command)
+        integer_list = exchange_numbers(integer_list, needed_num)
+    if 'max' in command:
+        first_command, second_command = command.split(' ')
+        print(max_even_odd_elements(integer_list, second_command))
+    if 'min' in command:
+        first_command, second_command = command.split(' ')
+        print(min_even_odd_elements(integer_list, second_command))
+    if 'first' in command:
+        first_command, second_command, third_command = command.split(' ')
+        needed_num = int(second_command)
+        if third_command == 'odd':
+            print(first_odd(integer_list, needed_num))
+        if third_command == 'even':
+            print(first_even(integer_list, needed_num))
+    if 'last' in command:
+        first_command, second_command, third_command = command.split(' ')
+        needed_num = int(second_command)
+        if third_command == 'odd':
+            print(last_odd(integer_list,needed_num))
+        if third_command == 'even':
+            print(last_even(integer_list, needed_num))
 
-# pipenv
-#   According to pypa/pipenv#598, it is recommended to include Pipfile.lock in version control.
-#   However, in case of collaboration, if having platform-specific dependencies or dependencies
-#   having no cross-platform support, pipenv may install dependencies that don't work, or not
-#   install all needed dependencies.
-#Pipfile.lock
+    command = input()
+print(integer_list)
 
-# PEP 582; used by e.g. github.com/David-OConnor/pyflow
-__pypackages__/
-
-# Celery stuff
-celerybeat-schedule
-celerybeat.pid
-
-# SageMath parsed files
-*.sage.py
-
-# Environments
-.env
-.venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
-
-# Spyder project settings
-.spyderproject
-.spyproject
-
-# Rope project settings
-.ropeproject
-
-# mkdocs documentation
-/site
-
-# mypy
-.mypy_cache/
-.dmypy.json
-dmypy.json
-
-# Pyre type checker
-.pyre/
